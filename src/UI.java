@@ -1,17 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class UI {
     JFrame window;
     JPanel titleNamePanel, startButtonPanel, loginPanel;
-    JLabel titleNameLabel, usernameLabel, passwordLabel, messageLabel;
+    JLabel titleNameLabel, usernameLabel, passwordLabel;
     JButton startButton;
     JTextField usernameField;
     JPasswordField passwordField;
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 60);
-    Font buttonFont = new Font("Times New Roman", Font.PLAIN, 40);
-    Font messageFont = new Font("Times New Roman", Font.PLAIN, 30);
+    Font buttonFont = new Font("Arial", Font.BOLD, 20);
     Font loginFont = new Font("Times New Roman", Font.PLAIN, 20);
+    Font loginTextField = new Font("Times New Roman", Font.PLAIN, 25);
     String loginUsername = "admin";
     String loginPassword = "password";
     public void createUI(){
@@ -20,13 +22,13 @@ public class UI {
         window.setSize(1360, 768);
         window.setTitle("Library Management System");
         window.setResizable(false);
-        //window.getContentPane().setBackground(Color.black);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLayout(null);
-        window.setVisible(true);
 
         //title panel
-        titleNameLabel = new JLabel("Library Management System");
+        titleNameLabel = new JLabel();
+        titleNameLabel.setText("Library Management System");
+        titleNameLabel.setForeground(Color.white);
         titleNameLabel.setFont(titleFont);
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(280, 189, 800, 80);
@@ -34,37 +36,55 @@ public class UI {
 
         //login panel
         loginPanel = new JPanel();
-        loginPanel.setBounds(500, 300, 400, 150);
-        loginPanel.setBackground(Color.white);
+        loginPanel.setBounds(480, 300, 400, 150);
+        loginPanel.setPreferredSize(new Dimension(300, 100));
         loginPanel.setLayout(new GridLayout(4, 1));
 
         // Username label & field
         usernameLabel = new JLabel(" Username");
-        usernameLabel.setForeground(Color.black);
+        usernameLabel.setForeground(Color.white);
         usernameLabel.setFont(loginFont);
         usernameField = new JTextField(10);
+        usernameField.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        usernameField.setFont(loginTextField);
         loginPanel.add(usernameLabel);
         loginPanel.add(usernameField);
 
         // Password field
         passwordLabel = new JLabel(" Password");
-        passwordLabel.setForeground(Color.black);
+        passwordLabel.setForeground(Color.white);
         passwordLabel.setFont(loginFont);
         passwordField = new JPasswordField();
+        passwordField.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+        passwordField.setFont(loginTextField);
         loginPanel.add(passwordLabel);
         loginPanel.add(passwordField);
 
         //start button
         startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(500, 459, 400, 100); //last x 580, 400 width
-        startButton = new JButton("Login");
+        startButtonPanel.setBounds(480, 450, 400, 60); //last x 580, 400 width
+        startButton = new JButton("Log in");
         startButton.setPreferredSize(new Dimension(400, 50));
         startButton.setBackground(Color.blue);
         startButton.setForeground(Color.white);
         startButton.setFont(buttonFont);
-        startButton.setFocusPainted(false);
-        startButtonPanel.add(startButton);
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String username = usernameField.getText();
+                String password = new String(passwordField.getPassword());
 
+                if (username.equals(loginUsername) && password.equals(loginPassword)) {
+                    // Perform login logic here
+                    JOptionPane.showMessageDialog(window, "Login successful!");
+                } else {
+                    // Display error message for invalid credentials
+                    JOptionPane.showMessageDialog(window, "Invalid username or password");
+                }
+            }
+        });
+
+        startButtonPanel.add(startButton);
         window.add(titleNamePanel);
         window.add(startButtonPanel);
         window.add(loginPanel);
