@@ -40,7 +40,7 @@ public class UI {
         loginPanel.setPreferredSize(new Dimension(300, 100));
         loginPanel.setLayout(new GridLayout(4, 1));
 
-        // Username label & field
+        //username label & field
         usernameLabel = new JLabel(" Username");
         usernameLabel.setForeground(Color.white);
         usernameLabel.setFont(loginFont);
@@ -50,7 +50,7 @@ public class UI {
         loginPanel.add(usernameLabel);
         loginPanel.add(usernameField);
 
-        // Password field
+        //password field
         passwordLabel = new JLabel(" Password");
         passwordLabel.setForeground(Color.white);
         passwordLabel.setFont(loginFont);
@@ -75,10 +75,10 @@ public class UI {
                 String password = new String(passwordField.getPassword());
 
                 if (username.equals(loginUsername) && password.equals(loginPassword)) {
-                    // Perform login logic here
+                    //login message
                     JOptionPane.showMessageDialog(window, "Login successful!");
                 } else {
-                    // Display error message for invalid credentials
+                    //error message
                     JOptionPane.showMessageDialog(window, "Invalid username or password");
                 }
             }
